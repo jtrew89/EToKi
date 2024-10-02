@@ -484,12 +484,14 @@ class blastParser(object) :
                             alleles[ region['locus'] ]['secondary'] = []
                         alleles[ region['locus'] ]['secondary'].append( dict(coordinates =region['coordinates'], seq=region['seq'], identity=region['identity']) )
                 elif alleles[ region['locus'] ] ['accepted'] & 32 == 0 :
-                    alleles[ region['locus'] ] = alleles[ region['locus'] + '_2' ]
+                    region['status'] += '{Duplicated}'
                     alleles[ region['locus'] ] ['status'] += '{Duplicated}'
+                    region['accepted'] = (region['accepted'] | 32) & (~1)
+                    alleles[ region['locus'] ] ['accepted'] = (region['accepted'] | 32) & (~1) 
                     #alleles[ region['locus'] ] ['seq'] = 'DUPLICATED'
                     #alleles[ region['locus'] ] ['value_md5'] = get_md5('DUPLICATED')
-                    alleles[ region['locus'] ] ['accepted'] = (alleles[ region['locus'] ] ['accepted'] | 32) & (~1)
                     #alleles[ region['locus'] ] ['allele_id'] = -1
+                    region['locus'] = region['locus'] + '_dup'
                     region['reference'] = 'MLSType:'+genome_id
                     alleles[region['locus']] = region
                     if 'secondary' not in alleles[ region['locus'] ] :
