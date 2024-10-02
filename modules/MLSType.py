@@ -459,7 +459,7 @@ class blastParser(object) :
         return 6
 
 
-    def form_alleles(self, regions, qrySeq, qryQual, genome_id, accepted, argument) :
+    def form_alleles_alt(self, regions, qrySeq, qryQual, genome_id, accepted, argument) :
         alleles = {}
         regions.sort(key=lambda x:x['identity'], reverse=True)
         regions.sort(key=lambda x:min(x['flanking'] + [0]), reverse=True)
@@ -484,11 +484,14 @@ class blastParser(object) :
                             alleles[ region['locus'] ]['secondary'] = []
                         alleles[ region['locus'] ]['secondary'].append( dict(coordinates =region['coordinates'], seq=region['seq'], identity=region['identity']) )
                 elif alleles[ region['locus'] ] ['accepted'] & 32 == 0 :
+                    alleles[ region['locus'] ] = alleles[ region['locus'] + '_2' ]
                     alleles[ region['locus'] ] ['status'] += '{Duplicated}'
-                    alleles[ region['locus'] ] ['seq'] = 'DUPLICATED'
-                    alleles[ region['locus'] ] ['value_md5'] = get_md5('DUPLICATED')
+                    #alleles[ region['locus'] ] ['seq'] = 'DUPLICATED'
+                    #alleles[ region['locus'] ] ['value_md5'] = get_md5('DUPLICATED')
                     alleles[ region['locus'] ] ['accepted'] = (alleles[ region['locus'] ] ['accepted'] | 32) & (~1)
-                    alleles[ region['locus'] ] ['allele_id'] = -1
+                    #alleles[ region['locus'] ] ['allele_id'] = -1
+                    region['reference'] = 'MLSType:'+genome_id
+                    alleles[region['locus']] = region
                     if 'secondary' not in alleles[ region['locus'] ] :
                         alleles[ region['locus'] ]['secondary'] = []
                     alleles[ region['locus'] ]['secondary'].append( dict(coordinates =region['coordinates'], seq=region['seq'], identity=region['identity']) )
