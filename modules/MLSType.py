@@ -463,7 +463,7 @@ class blastParser(object) :
         for k in values.keys():
             if locus + '_dup' in k:
                 listOfKeys.append(k)
-        return max([int(i.split('_')[3]) for i in listOfKeys]) + 1 
+        return listOfKeys
 
     def form_alleles(self, regions, qrySeq, qryQual, genome_id, accepted, argument) :
         alleles = {}
@@ -484,7 +484,6 @@ class blastParser(object) :
                 region['allele_id'] = -1
 
             if region['locus'] in alleles :
-                next_dup = dup_search(alleles, region['locus'])
                 if region['accepted'] & 64 > 0 :
                     if alleles[ region['locus'] ]['accepted'] & 64 > 0 :
                         if 'secondary' not in alleles[ region['locus'] ] :
@@ -498,7 +497,8 @@ class blastParser(object) :
                     #alleles[ region['locus'] ] ['seq'] = 'DUPLICATED'
                     #alleles[ region['locus'] ] ['value_md5'] = get_md5('DUPLICATED')
                     #alleles[ region['locus'] ] ['allele_id'] = -1
-                    if next_dup > 0:
+                    if dup_list = dup_search(alleles, region['locus']):
+                        next_dup = max([int(i.split('_')[3]) for i in dup_list]) + 1
                         region['locus'] = region['locus'] + '_dup_' + str(next_dup)
                     else:
                         region['locus'] = region['locus'] + '_dup_1'
