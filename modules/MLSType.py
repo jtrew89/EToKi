@@ -458,7 +458,7 @@ class blastParser(object) :
             return 0
         return 6
 
-    def dup_search(values,locus):
+    def dup_search(self,values,locus):
         listOfKeys = []
         for k in values.keys():
             if locus + '_dup' in k:
@@ -484,7 +484,7 @@ class blastParser(object) :
                 region['allele_id'] = -1
 
             if region['locus'] in alleles :
-                next_dup = dup_search(alleles, region['locus']
+                next_dup = dup_search(alleles, region['locus'])
                 if region['accepted'] & 64 > 0 :
                     if alleles[ region['locus'] ]['accepted'] & 64 > 0 :
                         if 'secondary' not in alleles[ region['locus'] ] :
