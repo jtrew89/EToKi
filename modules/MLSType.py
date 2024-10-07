@@ -459,7 +459,7 @@ class blastParser(object) :
         return 6
 
 
-    def form_alleles_alt(self, regions, qrySeq, qryQual, genome_id, accepted, argument) :
+    def form_alleles(self, regions, qrySeq, qryQual, genome_id, accepted, argument) :
         alleles = {}
         regions.sort(key=lambda x:x['identity'], reverse=True)
         regions.sort(key=lambda x:min(x['flanking'] + [0]), reverse=True)
