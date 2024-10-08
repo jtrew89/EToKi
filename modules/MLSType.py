@@ -493,7 +493,7 @@ class blastParser(object) :
                     region['status'] += '{Duplicated}'
                     alleles[ region['locus'] ] ['status'] += '{Duplicated}'
                     region['accepted'] = (region['accepted'] | 32) & (~1)
-                    alleles[ region['locus'] ] ['accepted'] = (region['accepted'] | 32) & (~1) 
+                    #alleles[ region['locus'] ] ['accepted'] = (region['accepted'] | 32) & (~1) 
                     #alleles[ region['locus'] ] ['seq'] = 'DUPLICATED'
                     #alleles[ region['locus'] ] ['value_md5'] = get_md5('DUPLICATED')
                     #alleles[ region['locus'] ] ['allele_id'] = -1
@@ -504,9 +504,9 @@ class blastParser(object) :
                         region['locus'] = region['locus'] + '_dup_1'
                     region['reference'] = 'MLSType:'+genome_id
                     alleles[region['locus']] = region
-                    if 'secondary' not in alleles[ region['locus'] ] :
-                        alleles[ region['locus'] ]['secondary'] = []
-                    alleles[ region['locus'] ]['secondary'].append( dict(coordinates =region['coordinates'], seq=region['seq'], identity=region['identity']) )
+                    #if 'secondary' not in alleles[ region['locus'] ] :
+                    #    alleles[ region['locus'] ]['secondary'] = []
+                    #alleles[ region['locus'] ]['secondary'].append( dict(coordinates =region['coordinates'], seq=region['seq'], identity=region['identity']) )
             else :
                 if accepted == 0 or self.get_qual(qryQual, *region['coordinates']) < 10:
                     region['accepted'] = region['accepted'] | 2
