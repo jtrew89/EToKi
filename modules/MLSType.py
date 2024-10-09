@@ -498,7 +498,7 @@ class blastParser(object) :
                     #alleles[ region['locus'] ] ['value_md5'] = get_md5('DUPLICATED')
                     #alleles[ region['locus'] ] ['allele_id'] = -1
                     if dup_search(alleles, region['locus']):
-                        dup_list = dup_search(alleles, region['locus'])
+                        dup_list = self.dup_search(alleles, region['locus'])
                         next_dup = max([int(i.split('_')[3]) for i in dup_list]) + 1
                         region['locus'] = region['locus'] + '_dup_' + str(next_dup)
                     else:
