@@ -492,7 +492,7 @@ class blastParser(object) :
                 elif alleles[ region['locus'] ] ['accepted'] & 32 == 0 :
                     region['status'] += '{Duplicated}'
                     alleles[ region['locus'] ] ['status'] += '{Duplicated}'
-                    region['accepted'] = (region['accepted'] | 32) & (~1)
+                    #region['accepted'] = (region['accepted'] | 32) & (~1)
                     #alleles[ region['locus'] ] ['accepted'] = (region['accepted'] | 32) & (~1) 
                     #alleles[ region['locus'] ] ['seq'] = 'DUPLICATED'
                     #alleles[ region['locus'] ] ['value_md5'] = get_md5('DUPLICATED')
